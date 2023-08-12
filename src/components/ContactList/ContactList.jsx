@@ -1,26 +1,31 @@
 import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setContacts } from "redux/contactListReduser";
+import { deleteContact, fetchGetContactsThunk, selectContactsItems, selectWordForFilter} from "redux/contactListReduser";
 
 
 const ContactList = () => {
-  const contacts = useSelector(state => state.contactList.contacts);
-  const wordForFilter = useSelector(state=>state.contactList.wordForFilter)
+  const contacts = useSelector(selectContactsItems);
+  const wordForFilter = useSelector(selectWordForFilter)
 
 const dispatch=useDispatch()
-  const filteredContacts = contacts.items.filter(contact =>
+useEffect(() => { 
+  dispatch(fetchGetContactsThunk());
+}, [dispatch]);
+  const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(wordForFilter.toLowerCase())
   );
-  const handleDelete = contactId => {
-    const updatedContacts = contacts.filter(contact => contact.id !== contactId);
-    dispatch(setContacts(updatedContacts));
-  };
+  // const handleDelete = contactId => {
+  //   const updatedContacts = contacts.filter(contact => contact.id !== contactId);
+  //   dispatch(setContacts(updatedContacts));
+  // };
+
   return (
     <ul>
       {filteredContacts.map(contact => (
         <li key={contact.id}>
           {contact.name}: {contact.number}
-          <button onClick={() => handleDelete(contact.id)}>Delete</button>
+          <button onClick={() => dispatch(deleteContact(contact.id))}>Delete</button>
         </li>
       ))}
     </ul>

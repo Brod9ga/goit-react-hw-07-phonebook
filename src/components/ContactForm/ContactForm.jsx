@@ -1,18 +1,18 @@
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setContacts } from "redux/contactListReduser";
+import { addContact, selectContactsItems} from "redux/contactListReduser";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const contacts = useSelector((state) => state.contactList.contacts);
+  const contacts = useSelector(selectContactsItems);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const existingContact = contacts.items.find(
+    const existingContact = contacts.find(
       (contact) => contact.name.toLowerCase() === name.toLowerCase()
     );
 
@@ -27,9 +27,9 @@ const ContactForm = () => {
       number,
     };
 
-    dispatch(setContacts([...contacts.items, newContact]));
+    dispatch(addContact(newContact));
 
-    // Очищаем поля формы после добавления контакта
+   
     setName("");
     setNumber("");
   };

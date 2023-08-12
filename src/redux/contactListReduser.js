@@ -93,7 +93,7 @@ state.contacts.items=action.payload
       .addCase(addContact.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
         // state.contacts = [...state.contacts, action.payload];
-        state.contacts.items.push(action.payload)
+        state.contacts.items?.push(action.payload)
       })
       .addCase(addContact.rejected, (state, action) => {
         state.contacts.isLoading = false;

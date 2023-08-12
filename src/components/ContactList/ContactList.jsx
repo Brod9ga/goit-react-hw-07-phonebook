@@ -12,9 +12,9 @@ const dispatch=useDispatch()
 useEffect(() => { 
   dispatch(fetchGetContactsThunk());
 }, [dispatch]);
-  const filteredContacts = contacts.filter(contact =>
+  const filteredContacts = contacts?.filter(contact =>
     contact.name.toLowerCase().includes(wordForFilter.toLowerCase())
-  );
+  )??[];
   // const handleDelete = contactId => {
   //   const updatedContacts = contacts.filter(contact => contact.id !== contactId);
   //   dispatch(setContacts(updatedContacts));

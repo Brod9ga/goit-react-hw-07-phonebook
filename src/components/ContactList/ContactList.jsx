@@ -14,15 +14,12 @@ useEffect(() => {
 }, [dispatch]);
   const filteredContacts = contacts?.filter(contact =>
     contact.name.toLowerCase().includes(wordForFilter.toLowerCase())
-  )??[];
-  // const handleDelete = contactId => {
-  //   const updatedContacts = contacts.filter(contact => contact.id !== contactId);
-  //   dispatch(setContacts(updatedContacts));
-  // };
+  );
+ 
 
   return (
     <ul>
-      {contacts.map(contact => (
+      {filteredContacts.map(contact => (
         <li key={contact.id}>
           {contact.name}: {contact.phone}
           <button onClick={() => dispatch(deleteContact(contact.id))}>Delete</button>

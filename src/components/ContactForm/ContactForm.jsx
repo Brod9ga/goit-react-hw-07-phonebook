@@ -5,7 +5,7 @@ import { addContact, selectContactsItems} from "redux/contactListReduser";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [phone, setNumber] = useState("");
   const contacts = useSelector(selectContactsItems);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ const ContactForm = () => {
     const newContact = {
       id: nanoid(),
       name,
-      number,
+      phone,
     };
 
     dispatch(addContact(newContact));
@@ -52,7 +52,7 @@ const ContactForm = () => {
         <h2>Phone number</h2>
         <input
           onChange={(event) => setNumber(event.target.value)}
-          value={number}
+          value={phone}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
